@@ -6,18 +6,22 @@ import { margins } from '../theme';
 import { SectionTitle } from './common/SectionTitle';
 import { StyledNumberField } from './common/NumberField';
 import { useRezept } from '../contexts/SeifeContext';
-import { StyledTextField } from './common/StyledTextField';
+import { StyledTextField as StyledTextFieldBase } from './common/StyledTextField';
 
 const RezeptContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const StyledInput = styled.div`
+const StyledInputRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: baseline;
   margin: 0 ${margins.s} ${margins.m} 0;
+`;
+
+const StyledTextField = styled(StyledTextFieldBase)`
+  margin-left: ${margins.s};
 `;
 
 const LaugeContainer = styled.div`
@@ -34,6 +38,7 @@ export const Rezept: FC<DefaultProps> = ({ className }) => {
       gesamtfettmasse,
       naohAnteil,
       laugenfluessigkeit,
+      fluessigkeitsanteil,
     },
     updateRezept,
   } = useRezept();
@@ -42,36 +47,42 @@ export const Rezept: FC<DefaultProps> = ({ className }) => {
     <div className={className}>
       <SectionTitle>Rezept</SectionTitle>
       <RezeptContainer>
-        <StyledInput>
+        <StyledInputRow>
           <StyledNumberField
             label="Gesamtfettmasse"
             value={gesamtfettmasse}
             validate={(value) => 0 <= value}
             update={(value) => updateRezept({ gesamtfettmasse: value })}
           /> g
-        </StyledInput>
-        <StyledInput>
+        </StyledInputRow>
+        <StyledInputRow>
+          <StyledNumberField
+            label="Flüssigkeitsanteil"
+            value={fluessigkeitsanteil}
+            validate={(value) => 0 <= value}
+            update={(value) => updateRezept({ fluessigkeitsanteil: value })}
+          /> %
           <StyledTextField
             label="Laugenflüssigkeit"
             value={laugenfluessigkeit}
             onChange={({ currentTarget: { value } }): void => updateRezept({ laugenfluessigkeit: value })}
           />
-        </StyledInput>
+        </StyledInputRow>
         <LaugeContainer>
-          <StyledInput>
+          <StyledInputRow>
             <StyledNumberField
               label="Laugenunterschuss"
               value={laugenunterschuss}
               update={(value) => updateRezept({ laugenunterschuss: value })}
             /> %
-          </StyledInput>
-          <StyledInput>
+          </StyledInputRow>
+          <StyledInputRow>
             <StyledNumberField
               label="NaOH-Anteil"
               value={naohAnteil}
               update={(value) => updateRezept({ naohAnteil: value })}
             /> %
-          </StyledInput>
+          </StyledInputRow>
         </LaugeContainer>
       </RezeptContainer>
     </div>

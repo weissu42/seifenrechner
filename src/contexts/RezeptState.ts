@@ -5,6 +5,7 @@ export interface Rezept {
   gesamtfettmasse: number;
   naohAnteil: number;
   laugenfluessigkeit: string;
+  fluessigkeitsanteil: number;
 }
 
 export interface RezeptState {
@@ -18,6 +19,7 @@ export const defaultRezept: RezeptState = {
     gesamtfettmasse: 300,
     naohAnteil: 100,
     laugenfluessigkeit: 'Wasser',
+    fluessigkeitsanteil: 30,
   },
   updateRezept: () => undefined,
 };
@@ -27,8 +29,9 @@ export const useRezeptState = (): RezeptState => {
   const [ gesamtfettmasse, setGesamtfettmasse ] = useState(defaultRezept.rezept.gesamtfettmasse);
   const [ naohAnteil, setNaohAnteil ] = useState(defaultRezept.rezept.naohAnteil);
   const [ laugenfluessigkeit, setLaugenfluessigkeit ] = useState(defaultRezept.rezept.laugenfluessigkeit);
+  const [ fluessigkeitsanteil, setFluessigkeitsanteil ] = useState(defaultRezept.rezept.fluessigkeitsanteil);
 
-  const updateRezept = ({ laugenunterschuss, gesamtfettmasse, naohAnteil, laugenfluessigkeit }: Partial<Rezept>): void => {
+  const updateRezept = ({ laugenunterschuss, gesamtfettmasse, naohAnteil, laugenfluessigkeit, fluessigkeitsanteil }: Partial<Rezept>): void => {
     if (laugenunterschuss !== undefined) {
       setLaugenunterschuss(laugenunterschuss);
     }
@@ -44,6 +47,10 @@ export const useRezeptState = (): RezeptState => {
     if (laugenfluessigkeit !== undefined) {
       setLaugenfluessigkeit(laugenfluessigkeit);
     }
+
+    if (fluessigkeitsanteil !== undefined) {
+      setFluessigkeitsanteil(fluessigkeitsanteil);
+    }
   };
 
   return {
@@ -52,6 +59,7 @@ export const useRezeptState = (): RezeptState => {
       gesamtfettmasse,
       naohAnteil,
       laugenfluessigkeit,
+      fluessigkeitsanteil,
     },
     updateRezept,
   };

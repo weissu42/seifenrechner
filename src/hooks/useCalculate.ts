@@ -10,6 +10,7 @@ interface Lauge {
 interface UseCalculate {
   calculateLauge: () => Lauge | undefined;
   calculateJodzahl: () => number | undefined;
+  calculateFluessigkeit: () => number;
 }
 
 const calculateLaugeFor = (zutaten: Zutat[]): number => zutaten
@@ -18,7 +19,14 @@ const calculateLaugeFor = (zutaten: Zutat[]): number => zutaten
   .reduce((sum, menge) => sum + menge, 0) / 1000 / 100;
 
 export const useCalculate = (): UseCalculate => {
-  const { rezept: { gesamtfettmasse, laugenunterschuss, naohAnteil } } = useRezept();
+  const {
+    rezept: {
+      gesamtfettmasse,
+      laugenunterschuss,
+      naohAnteil,
+      fluessigkeitsanteil,
+    },
+  } = useRezept();
   const { getFette, getZusaetze } = useZutaten();
 
   const validateAnteile = (): boolean => {
@@ -53,5 +61,9 @@ export const useCalculate = (): UseCalculate => {
     return jodzahl / 100;
   };
 
-  return { calculateLauge, calculateJodzahl };
+  const calculateFluessigkeit = (): number => {
+    return gesamtfettmasse * fluessigkeitsanteil / 100;
+  };
+
+  return { calculateLauge, calculateJodzahl, calculateFluessigkeit };
 };

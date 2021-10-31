@@ -11,9 +11,9 @@ const StyledAnteile = styled(InfoText)`
 `;
 
 export const Lauge: FC = () => {
-  const { rezept: { naohAnteil } } = useRezept();
+  const { rezept: { naohAnteil, laugenfluessigkeit } } = useRezept();
   const { getFette } = useZutaten();
-  const { calculateLauge } = useCalculate();
+  const { calculateLauge, calculateFluessigkeit } = useCalculate();
 
   const lauge = calculateLauge();
 
@@ -21,6 +21,7 @@ export const Lauge: FC = () => {
     <StyledAnteile>
       Summe der Anteile: {getFette().reduce((sum, { anteil }) => sum + anteil, 0)} %
     </StyledAnteile>
+    <InfoText>{laugenfluessigkeit}: {calculateFluessigkeit()} g</InfoText>
     <LaugeRow
       menge={lauge?.naoh}
       name={'NaOH'}

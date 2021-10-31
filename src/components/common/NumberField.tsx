@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 
 import { TextField, TextFieldProps } from '@mui/material';
+import styled from '@emotion/styled';
+import { margins } from '../../theme';
 
 interface NumberTextFieldProps {
   validate?: (value: number) => boolean;
@@ -13,7 +15,7 @@ export const NumberField: FC <NumberTextFieldProps & TextFieldProps> = (props) =
   const { validate, update, ...textFieldProps } = props;
 
   const onChange = ({ currentTarget: { value } }: React.ChangeEvent<HTMLInputElement>): void => {
-    const parsed = parseFloat(value);
+    const parsed = parseFloat(value !== '' ? value : '0');
 
     if (isNaN(parsed) || !(validate ?? validatePercentage)(parsed)) {
       return;
@@ -31,3 +33,6 @@ export const NumberField: FC <NumberTextFieldProps & TextFieldProps> = (props) =
   );
 };
 
+export const StyledNumberField = styled(NumberField)`
+  margin-right: ${margins.s};
+`;

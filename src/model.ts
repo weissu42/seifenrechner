@@ -1,14 +1,15 @@
 export interface Zutat {
   name: string;
+  zusatz: boolean;
   verseifungszahl: number;
+  jodzahl: number;
   anteil: number;
 }
 
 export interface Rezept {
   laugenunterschuss: number;
   gesamtfettmasse: number;
-   kaohAnteil: number;
-   naohAnteil: number;
+  naohAnteil: number;
 }
 
 export interface Metadata {

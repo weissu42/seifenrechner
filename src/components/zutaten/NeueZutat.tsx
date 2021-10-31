@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
-import { useZutaten } from '../hooks/useZutaten';
-import verseifungszahlen from '../resources/verseifungszahlen.json';
-import { DefaultProps } from './DefaultProps';
-import { StyledNumberField, StyledTextField } from './styles';
-import { Button } from './Button';
+import { useZutaten } from '../../hooks/useZutaten';
+import { DefaultProps } from '../common/DefaultProps';
+import { Button } from '../common/Button';
+import { StyledNumberField } from '../common/NumberField';
+import { StyledTextField } from '../common/StyledTextField';
 
 const StyledForm = styled.form`
   display: flex;
@@ -17,15 +17,9 @@ export const NeueZutat: FC<DefaultProps> = ({ className }) => {
   const [ zutat, setZutat ] = useState('');
   const [ anteil, setAnteil ] = useState(0);
 
-  const onSubmitZutat = (): void => {
-    const { verseifungszahl } = (verseifungszahlen as Record<string, { verseifungszahl: number }>)[zutat] ?? {};
-
-    if (verseifungszahl === undefined) {
-      console.log('Verzeifungszahl nicht gefunden', { zutat });
-      return;
-    }
-
-    addZutat({ name: zutat, anteil , verseifungszahl });
+  const onSubmitZutat = (event: React.FormEvent): void => {
+    event.preventDefault();
+    addZutat(zutat, anteil);
     setZutat('');
     setAnteil(0);
   };
@@ -36,7 +30,7 @@ export const NeueZutat: FC<DefaultProps> = ({ className }) => {
       onSubmit={onSubmitZutat}
     >
       <StyledTextField
-        label="Neue Zutat"
+        label="Neues Öl, Fett oder Säure"
         type="text"
         value={zutat}
         onChange={({ currentTarget: { value } }: React.ChangeEvent<HTMLInputElement>) => setZutat(value)}

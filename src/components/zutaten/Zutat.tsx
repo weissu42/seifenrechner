@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { InputLabel } from '@mui/material';
-import { Zutat as ZutatModel } from '../model';
-import { DefaultProps } from './DefaultProps';
-import { margins } from '../theme';
-import { NumberField } from './NumberField';
-import { Button } from './Button';
 
-const StyledName = styled(InputLabel)`
+import { Zutat as ZutatModel } from '../../model';
+import { DefaultProps } from '../common/DefaultProps';
+import { margins } from '../../theme';
+import { NumberField } from '../common/NumberField';
+import { Button } from '../common/Button';
+import { round } from '../../utils/round';
+import { InfoText } from '../common/InfoText';
+
+const StyledName = styled(InfoText)`
   flex: 1;
   margin: 0 ${margins.s};
 `;
@@ -17,7 +19,7 @@ const StyledAnteil = styled(NumberField)`
   margin-right: ${margins.s};
 `;
 
-const StyledMenge = styled(InputLabel)`
+const StyledMenge = styled(InfoText)`
   width: 20%;
   margin: 0 ${margins.s};
 `;
@@ -29,15 +31,20 @@ interface ZutatProps extends ZutatModel, DefaultProps {
 }
 
 const ZutatComp: FC<ZutatProps> = ({ name, anteil, gesamtfettmasse, update, remove, className }) => {
+  const onRemove = (event: React.FormEvent): void => {
+    event.preventDefault();
+    remove();
+  };
+
   return (
     <div className={className}>
       <StyledName>{name}</StyledName>
+      <StyledMenge>{round(gesamtfettmasse * anteil / 100)} g</StyledMenge>
       <StyledAnteil
         value={anteil}
         update={update}
-      />
-      <StyledMenge>{gesamtfettmasse * anteil / 100} g</StyledMenge>
-      <Button onClick={remove}>Entfernen</Button>
+      /> %
+      <Button onClick={onRemove}>Entfernen</Button>
     </div>
   );
 };

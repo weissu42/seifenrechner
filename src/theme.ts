@@ -1,5 +1,5 @@
 export const margins = {
-  s: '15px',
+  s: '12px',
   m: '20px',
 };
 

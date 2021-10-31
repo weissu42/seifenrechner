@@ -211,7 +211,7 @@ module.exports = {
     'prefer-const': 'error',
     'quote-props': [ 'error', 'as-needed' ],
     radix: 'error',
-    'react/jsx-max-props-per-line': 'error',
+    'react/jsx-max-props-per-line': [ 'error', { maximum: { single: 3, multi: 1 } } ],
     semi: 'off', // use @typescript-eslint/semi instead
     'sort-imports': [ 'error', {
       allowSeparatedGroups: true,

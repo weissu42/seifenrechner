@@ -309,3 +309,5 @@ export const verseifungszahlen: { [name: string]: ZutatInfo } = {
     zusatz: true,
   },
 };
+
+export const zutatenNamen = Object.keys(verseifungszahlen);

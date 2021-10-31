@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 
-import { Zutat as ZutatModel } from '../../model';
 import { DefaultProps } from '../common/DefaultProps';
 import { margins } from '../../theme';
 import { NumberField } from '../common/NumberField';
 import { Button } from '../common/Button';
 import { round } from '../../utils/round';
 import { InfoText } from '../common/InfoText';
+import { Zutat as ZutatModel } from '../../contexts/ZutatenState';
 
 const StyledName = styled(InfoText)`
   flex: 1;

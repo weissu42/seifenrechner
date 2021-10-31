@@ -7,10 +7,9 @@ import { Zutaten } from './components/zutaten/Zutaten';
 import { Persistenz } from './components/Persistenz';
 import { NeueZutat } from './components/zutaten/NeueZutat';
 import { mainColor, margins } from './theme';
-import { ZutatenProvider } from './contexts/ZutatenContext';
-import { RezeptProvider } from './contexts/RezeptContext';
 import { Info } from './components/Info';
 import { Lauge } from './components/lauge/Lauge';
+import { SeifeProvider } from './contexts/SeifeContext';
 
 export const StyledApp = styled.div`
   display: flex;
@@ -32,21 +31,19 @@ const App: FC = () => {
   return (
     <StyledApp className="App">
       <StyledContainer>
-        <RezeptProvider>
-          <ZutatenProvider>
-            <Metadata/>
-            <Line />
-            <Rezept />
-            <Line />
-            <NeueZutat />
-            <Line />
-            <Zutaten />
-            <Lauge />
-            <Line />
-            <Info />
-            <Persistenz />
-          </ZutatenProvider>
-        </RezeptProvider>
+        <SeifeProvider>
+          <Metadata/>
+          <Line />
+          <Rezept />
+          <Line />
+          <NeueZutat />
+          <Line />
+          <Zutaten />
+          <Lauge />
+          <Line />
+          <Info />
+          <Persistenz />
+        </SeifeProvider>
       </StyledContainer>
     </StyledApp>
   );

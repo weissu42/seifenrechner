@@ -3,9 +3,8 @@ import styled from '@emotion/styled';
 import { useCalculate } from '../../hooks/useCalculate';
 import { InfoText } from '../common/InfoText';
 import { margins } from '../../theme';
-import { useRezept } from '../../hooks/useRezept';
-import { useZutaten } from '../../hooks/useZutaten';
 import { LaugeRow } from './LaugeRow';
+import { useRezept, useZutaten } from '../../contexts/SeifeContext';
 
 const StyledAnteile = styled(InfoText)`
   margin-bottom: ${margins.s};

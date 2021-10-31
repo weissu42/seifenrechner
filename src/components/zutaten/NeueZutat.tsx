@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
-import { useZutaten } from '../../hooks/useZutaten';
 import { DefaultProps } from '../common/DefaultProps';
 import { Button } from '../common/Button';
 import { StyledNumberField } from '../common/NumberField';
 import { StyledTextField } from '../common/StyledTextField';
+import { useZutaten } from '../../contexts/SeifeContext';
 
 const StyledForm = styled.form`
   display: flex;

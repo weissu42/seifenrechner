@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { useRezept } from '../hooks/useRezept';
 import { DefaultProps } from './common/DefaultProps';
 import { margins } from '../theme';
 import { SectionTitle } from './common/SectionTitle';
 import { StyledNumberField } from './common/NumberField';
+import { useRezept } from '../contexts/SeifeContext';
 
 const RezeptContainer = styled.div`
   display: flex;

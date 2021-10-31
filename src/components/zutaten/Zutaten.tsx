@@ -1,13 +1,12 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { useZutaten } from '../../hooks/useZutaten';
 import { margins } from '../../theme';
 import { Zutat } from './Zutat';
 import { DefaultProps } from '../common/DefaultProps';
-import { useRezept } from '../../hooks/useRezept';
 import { SectionTitle } from '../common/SectionTitle';
 import { InfoText } from '../common/InfoText';
-import { Zutat as ZutatModel } from '../../model';
+import { Zutat as ZutatModel } from '../../contexts/ZutatenState';
+import { useRezept, useZutaten } from '../../contexts/SeifeContext';
 
 const StyledZutat = styled(Zutat)`
   margin-top: ${margins.m};

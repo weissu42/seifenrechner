@@ -1,7 +1,14 @@
-import React, { FC, createContext, useState } from 'react';
+import { useState } from 'react';
 
-import { Zutat } from '../model';
 import { verseifungszahlen } from '../resources/verseifungszahlen';
+
+export interface Zutat {
+  name: string;
+  zusatz: boolean;
+  verseifungszahl: number;
+  jodzahl: number;
+  anteil: number;
+}
 
 export interface ZutatenState {
   zutaten: Zutat[];
@@ -12,7 +19,7 @@ export interface ZutatenState {
   updateZutat: (index: number, anteil: number) => void;
 }
 
-const defaultZutaten: ZutatenState = {
+export const defaultZutaten: ZutatenState = {
   zutaten: [],
   getFette: () => [],
   getZusaetze: () => [],
@@ -21,17 +28,15 @@ const defaultZutaten: ZutatenState = {
   updateZutat: () => undefined,
 };
 
-export const ZutatenContext = createContext(defaultZutaten);
-
-export const ZutatenProvider: FC = ({ children })=> {
-  const [ zutaten, setZutaten ] = useState<Zutat[]>([]);
+export const useZutatenState = (): ZutatenState => {
+  const [ zutaten, setZutaten ] = useState<Zutat[]>(defaultZutaten.zutaten);
 
   const getFette = (): Zutat[] => {
-    return zutaten.filter(({ zusatz }) =>!zusatz);
+    return zutaten.filter(({ zusatz }) => !zusatz);
   };
 
   const getZusaetze = (): Zutat[] => {
-    return zutaten.filter(({ zusatz }) =>zusatz);
+    return zutaten.filter(({ zusatz }) => zusatz);
   };
 
   const addZutat = (name: string, anteil: number): void => {
@@ -61,6 +66,5 @@ export const ZutatenProvider: FC = ({ children })=> {
     setZutaten([ ...zutaten.slice(0, index), zutat, ...zutaten.slice(index + 1) ]);
   };
 
-  const state = { zutaten, getFette, getZusaetze, addZutat, removeZutat, updateZutat };
-  return <ZutatenContext.Provider value ={state}>{children}</ZutatenContext.Provider>;
+  return { zutaten, getFette, getZusaetze, addZutat, removeZutat, updateZutat };
 };

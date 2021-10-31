@@ -1,7 +1,6 @@
-import { useRezept } from './useRezept';
-import { useZutaten } from './useZutaten';
 import { umrechnungsfaktor } from '../resources/verseifungszahlen';
-import { Zutat } from '../model';
+import { Zutat } from '../contexts/ZutatenState';
+import { useRezept, useZutaten } from '../contexts/SeifeContext';
 
 interface Lauge {
   naoh: number;

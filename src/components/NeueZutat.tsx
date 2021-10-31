@@ -1,11 +1,10 @@
 import React, { FC, useState } from 'react';
-import { Button, TextField } from '@mui/material';
 import styled from '@emotion/styled';
-
-import { NumberField } from './NumberField';
 import { useZutaten } from '../hooks/useZutaten';
 import verseifungszahlen from '../resources/verseifungszahlen.json';
 import { DefaultProps } from './DefaultProps';
+import { StyledNumberField, StyledTextField } from './styles';
+import { Button } from './Button';
 
 const StyledForm = styled.form`
   display: flex;
@@ -36,14 +35,14 @@ export const NeueZutat: FC<DefaultProps> = ({ className }) => {
       className={className}
       onSubmit={onSubmitZutat}
     >
-      <TextField
+      <StyledTextField
         label="Neue Zutat"
         type="text"
         value={zutat}
         onChange={({ currentTarget: { value } }: React.ChangeEvent<HTMLInputElement>) => setZutat(value)}
         onSubmit={onSubmitZutat}
       />
-      <NumberField
+      <StyledNumberField
         label="Anteil"
         value={anteil}
         update={(value) => setAnteil(value)}

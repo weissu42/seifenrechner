@@ -9,14 +9,14 @@ export interface ZutatenState {
   updateZutat: (index: number, anteil: number) => void;
 }
 
-const defaultContext: ZutatenState = {
+const defaultZutaten: ZutatenState = {
   zutaten: [],
   addZutat: () => undefined,
   removeZutat: () => undefined,
   updateZutat: () => undefined,
 };
 
-export const ZutatenContext = createContext(defaultContext);
+export const ZutatenContext = createContext(defaultZutaten);
 
 export const ZutatenProvider: FC = ({ children })=> {
   const [ zutaten, setZutaten ] = useState<Zutat[]>([ { name: 'Beispiel', verseifungszahl: 0.13, anteil: 50 } ]);

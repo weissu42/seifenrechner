@@ -10,9 +10,9 @@ interface NumberTextFieldProps {
 const validatePercentage = (value: number): boolean => (0 <= value && value <= 100);
 
 export const NumberField: FC <NumberTextFieldProps & TextFieldProps> = (props) => {
-  const { validate , update, ...textFieldProps } = props;
+  const { validate, update, ...textFieldProps } = props;
 
-  const onChange = ({ currentTarget: { value } }: React.ChangeEvent<HTMLInputElement>): void=> {
+  const onChange = ({ currentTarget: { value } }: React.ChangeEvent<HTMLInputElement>): void => {
     const parsed = parseFloat(value);
 
     if (isNaN(parsed) || !(validate ?? validatePercentage)(parsed)) {

@@ -1,33 +1,42 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { Button, InputLabel } from '@mui/material';
+import { InputLabel } from '@mui/material';
 import { Zutat as ZutatModel } from '../logic/model';
-import { NumberField } from './NumberField';
 import { DefaultProps } from './DefaultProps';
 import { margins } from '../theme';
+import { NumberField } from './NumberField';
+import { Button } from './Button';
 
-const StyledLabel = styled(InputLabel)`
-  width: 80%;
-  padding: 0 ${margins.s};
+const StyledName = styled(InputLabel)`
+  flex: 1;
+  margin: 0 ${margins.s};
 `;
 
-const StyledNumberField = styled(NumberField)`
+const StyledAnteil = styled(NumberField)`
   width: 20%;
+  margin-right: ${margins.s};
+`;
+
+const StyledMenge = styled(InputLabel)`
+  width: 20%;
+  margin: 0 ${margins.s};
 `;
 
 interface ZutatProps extends ZutatModel, DefaultProps {
+  gesamtfettmasse: number;
   update: (anteil: number) => void;
   remove: () => void;
 }
 
-const ZutatComp: FC<ZutatProps> = ({ name, anteil, update, remove, className }) => {
+const ZutatComp: FC<ZutatProps> = ({ name, anteil, gesamtfettmasse, update, remove, className }) => {
   return (
     <div className={className}>
-      <StyledLabel>{name}</StyledLabel>
-      <StyledNumberField
+      <StyledName>{name}</StyledName>
+      <StyledAnteil
         value={anteil}
         update={update}
       />
+      <StyledMenge>{gesamtfettmasse * anteil / 100} g</StyledMenge>
       <Button onClick={remove}>Entfernen</Button>
     </div>
   );

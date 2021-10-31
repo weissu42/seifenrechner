@@ -7,30 +7,35 @@ import { Rezept } from './components/Rezept';
 import { Zutaten } from './components/Zutaten';
 import { Persistenz } from './components/Persistenz';
 import { NeueZutat } from './components/NeueZutat';
-import { margins } from './theme';
+import { mainColor, margins } from './theme';
 import { ZutatenProvider } from './contexts/ZutatenContext';
+import { RezeptProvider } from './contexts/RezeptContext';
 
-const Separator = styled.div`
-  height: ${margins.s}
+const Line = styled.div`
+  height: ${margins.m};
+  border-bottom: 1px solid ${mainColor};
+  margin-bottom: ${margins.m};
 `;
 
 const App: FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <ZutatenProvider>
-          <StyledContainer>
-            <Metadata/>
-            <Separator />
-            <Rezept />
-            <Separator />
-            <NeueZutat />
-            <Separator />
-            <Zutaten />
-            <Separator />
-            <Persistenz />
-          </StyledContainer>
-        </ZutatenProvider>
+        <RezeptProvider>
+          <ZutatenProvider>
+            <StyledContainer>
+              <Metadata/>
+              <Line />
+              <Rezept />
+              <Line />
+              <NeueZutat />
+              <Line />
+              <Zutaten />
+              <Line />
+              <Persistenz />
+            </StyledContainer>
+          </ZutatenProvider>
+        </RezeptProvider>
       </header>
     </div>
   );

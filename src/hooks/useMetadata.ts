@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Metadata } from '../logic/model';
+import { Metadata } from '../model';
 
 interface UseMetadata {
   metadata: Metadata;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { InputLabel } from '@mui/material';
-import { Zutat as ZutatModel } from '../logic/model';
+import { Zutat as ZutatModel } from '../model';
 import { DefaultProps } from './DefaultProps';
 import { margins } from '../theme';
 import { NumberField } from './NumberField';

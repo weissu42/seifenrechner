@@ -7,6 +7,8 @@ export interface Zutat {
 export interface Rezept {
   laugenunterschuss: number;
   gesamtfettmasse: number;
+   kaohAnteil: number;
+   naohAnteil: number;
 }
 
 export interface Metadata {

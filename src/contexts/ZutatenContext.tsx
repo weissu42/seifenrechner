@@ -1,6 +1,6 @@
 import React, { FC, createContext, useState } from 'react';
 
-import { Zutat } from '../logic/model';
+import { Zutat } from '../model';
 
 export interface ZutatenState {
   zutaten: Zutat[];

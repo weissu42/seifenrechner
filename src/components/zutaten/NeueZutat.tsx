@@ -19,6 +19,7 @@ export const NeueZutat: FC<DefaultProps> = ({ className }) => {
 
   const onSubmitZutat = (event: React.FormEvent): void => {
     event.preventDefault();
+
     addZutat(zutat, anteil);
     setZutat('');
     setAnteil(0);

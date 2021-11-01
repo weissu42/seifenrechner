@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/seifenrechner/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/seifenrechner/static/js/main.39470077.chunk.js",
+    "main.js.map": "/seifenrechner/static/js/main.39470077.chunk.js.map",
+    "runtime-main.js": "/seifenrechner/static/js/runtime-main.58daab70.js",
+    "runtime-main.js.map": "/seifenrechner/static/js/runtime-main.58daab70.js.map",
+    "static/js/2.94635449.chunk.js": "/seifenrechner/static/js/2.94635449.chunk.js",
+    "static/js/2.94635449.chunk.js.map": "/seifenrechner/static/js/2.94635449.chunk.js.map",
+    "index.html": "/seifenrechner/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/seifenrechner/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.94635449.chunk.js.LICENSE.txt": "/seifenrechner/static/js/2.94635449.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.58daab70.js",
+    "static/js/2.94635449.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.39470077.chunk.js"
+  ]
+}

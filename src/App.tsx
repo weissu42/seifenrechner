@@ -5,11 +5,11 @@ import { Metadata } from './components/Metadata';
 import { Rezept } from './components/Rezept';
 import { Zutaten } from './components/zutaten/Zutaten';
 import { Persistenz } from './components/Persistenz';
-import { NeueZutat } from './components/zutaten/NeueZutat';
 import { mainColor, margins } from './theme';
 import { Info } from './components/Info';
 import { Lauge } from './components/lauge/Lauge';
 import { SeifeProvider } from './contexts/SeifeContext';
+import { NeueZutaten } from './components/zutaten/NeueZutaten';
 
 export const StyledApp = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const App: FC = () => {
           <Line />
           <Rezept />
           <Line />
-          <NeueZutat />
+          <NeueZutaten />
           <Line />
           <Zutaten />
           <Lauge />

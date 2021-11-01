@@ -1,56 +1,37 @@
 import { useState } from 'react';
 
-import { verseifungszahlen } from '../resources/verseifungszahlen';
-
 export interface Zutat {
   name: string;
-  zusatz: boolean;
-  verseifungszahl: number;
-  jodzahl: number;
   anteil: number;
 }
 
-export interface ZutatenState {
-  zutaten: Zutat[];
-  getFette: () => Zutat[];
-  getZusaetze: () => Zutat[];
+export interface VerseifungsZutat extends Zutat {
+  zusatz: boolean;
+  verseifungszahl: number;
+  jodzahl: number;
+}
+
+export interface ZutatenState <ZUTAT extends Zutat> {
+  zutaten: ZUTAT[];
+  setZutaten: (zutaten: ZUTAT[]) => void;
   addZutat: (name: string, anteil: number) => void;
   removeZutat: (index: number) => void;
   updateZutat: (index: number, anteil: number) => void;
 }
 
-export const defaultZutaten: ZutatenState = {
+export const defaultZutaten: ZutatenState<Zutat> = {
   zutaten: [],
-  getFette: () => [],
-  getZusaetze: () => [],
+  setZutaten: () => undefined,
   addZutat: () => undefined,
   removeZutat: () => undefined,
   updateZutat: () => undefined,
 };
 
-export const useZutatenState = (): ZutatenState => {
-  const [ zutaten, setZutaten ] = useState<Zutat[]>(defaultZutaten.zutaten);
-
-  const getFette = (): Zutat[] => {
-    return zutaten.filter(({ zusatz }) => !zusatz);
-  };
-
-  const getZusaetze = (): Zutat[] => {
-    return zutaten.filter(({ zusatz }) => zusatz);
-  };
+export const useZutatenState = <ZUTAT extends Zutat,>(): ZutatenState<ZUTAT> => {
+  const [ zutaten, setZutaten ] = useState<ZUTAT[]>([]);
 
   const addZutat = (name: string, anteil: number): void => {
-    const zutatInfo = verseifungszahlen[name];
-
-    if (zutatInfo === undefined) {
-      console.log('keine Zutat:', name);
-      return;
-    }
-
-    const { verseifungszahl, jodzahl, zusatz } = zutatInfo;
-    const newZutat: Zutat = { name, anteil, verseifungszahl, jodzahl, zusatz: zusatz ?? false };
-
-    setZutaten([ ...zutaten, newZutat ]);
+    setZutaten([ ...zutaten, { name, anteil } as ZUTAT ]);
   };
 
   const removeZutat = (index: number): void => {
@@ -66,5 +47,6 @@ export const useZutatenState = (): ZutatenState => {
     setZutaten([ ...zutaten.slice(0, index), zutat, ...zutaten.slice(index + 1) ]);
   };
 
-  return { zutaten, getFette, getZusaetze, addZutat, removeZutat, updateZutat };
+  return { zutaten, setZutaten, addZutat, removeZutat, updateZutat };
 };
+

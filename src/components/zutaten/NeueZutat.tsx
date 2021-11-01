@@ -1,13 +1,14 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { MenuItem, Select } from '@mui/material';
+import { Select, TextField } from '@mui/material';
+
 import { DefaultProps } from '../common/DefaultProps';
 import { Button } from '../common/Button';
 import { StyledNumberField } from '../common/NumberField';
-import { useZutaten } from '../../contexts/SeifeContext';
 import { zutatenNamen } from '../../resources/verseifungszahlen';
 import { margins } from '../../theme';
 import { InfoText } from '../common/InfoText';
+import { Zutat, ZutatenState } from '../../contexts/ZutatenState';
 
 const StyledForm = styled.form`
   display: flex;
@@ -15,22 +16,38 @@ const StyledForm = styled.form`
   align-items: center;
 `;
 
+const StyledLabel = styled(InfoText)`
+  flex: 1;
+`;
+
 const StyledSelect = styled(Select)`
   margin: 0 ${margins.s};
-  max-width: 50%;
   min-width: 200px;
 `;
 
-export const NeueZutat: FC<DefaultProps> = ({ className }) => {
+const StyledTextField = styled(TextField)`
+  margin: 0 ${margins.s};
+  min-width: 200px;
+`;
+
+interface NeueZutatProps<ZUTAT extends Zutat> extends DefaultProps {
+  label: string;
+  useZutaten: () => ZutatenState<ZUTAT>;
+  zutatenOptions?: JSX.Element[];
+}
+
+export const NeueZutat = <ZUTAT extends Zutat>({ label, useZutaten, zutatenOptions, className }: NeueZutatProps<ZUTAT>): JSX.Element => {
+  const defaultZutat = zutatenOptions ? (zutatenNamen[0] ?? '') : '';
+
   const { addZutat } = useZutaten();
-  const [ zutat, setZutat ] = useState(zutatenNamen[0] ?? '');
+  const [ zutat, setZutat ] = useState(defaultZutat);
   const [ anteil, setAnteil ] = useState(0);
 
   const onSubmitZutat = (event: React.FormEvent): void => {
     event.preventDefault();
 
     addZutat(zutat, anteil);
-    setZutat(zutatenNamen[0] ?? '');
+    setZutat(defaultZutat);
     setAnteil(0);
   };
 
@@ -39,14 +56,19 @@ export const NeueZutat: FC<DefaultProps> = ({ className }) => {
       className={className}
       onSubmit={onSubmitZutat}
     >
-      <InfoText>Neues Öl, Fett oder Säure:</InfoText>
-      <StyledSelect
-        type="text"
-        value={zutat}
-        onChange={({ target: { value } }) => setZutat(value as string)}
-      >
-        {zutatenNamen.map((name: string): JSX.Element => <MenuItem value={name} key={name}>{name}</MenuItem>)}
-      </StyledSelect>
+      <StyledLabel>{label}:</StyledLabel>
+      {zutatenOptions
+        ? <StyledSelect
+          type="text"
+          value={zutat}
+          onChange={({ target: { value } }) => setZutat(value as string)}
+        >
+          {zutatenOptions}
+        </StyledSelect>
+        : <StyledTextField
+          value={zutat}
+          onChange={({ target: { value } }) => setZutat(value)}
+        />}
       <StyledNumberField
         label="Anteil"
         value={anteil}

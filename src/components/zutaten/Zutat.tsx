@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 
 import { DefaultProps } from '../common/DefaultProps';
@@ -7,7 +7,7 @@ import { NumberField } from '../common/NumberField';
 import { Button } from '../common/Button';
 import { round } from '../../utils/round';
 import { InfoText } from '../common/InfoText';
-import { Zutat as ZutatModel } from '../../contexts/ZutatenState';
+import { Zutat as ZutatModel, ZutatenState } from '../../contexts/ZutatenState';
 
 const StyledName = styled(InfoText)`
   flex: 1;
@@ -24,36 +24,46 @@ const StyledMenge = styled(InfoText)`
   margin: 0 ${margins.s};
 `;
 
-interface ZutatProps extends ZutatModel, DefaultProps {
+interface ZutatProps<ZUTAT extends ZutatModel> extends DefaultProps {
+  useZutaten: () => ZutatenState<ZUTAT>;
+  zutat: ZUTAT;
   gesamtfettmasse: number;
-  update: (anteil: number) => void;
-  remove: () => void;
+  index: number;
+  key: number;
 }
 
-const ZutatComp: FC<ZutatProps> = ({ name, anteil, gesamtfettmasse, update, remove, className }) => {
-  const onRemove = (event: React.FormEvent): void => {
-    event.preventDefault();
-    remove();
-  };
-
-  return (
-    <div className={className}>
-      <StyledName>{name}</StyledName>
-      <StyledMenge>{round(gesamtfettmasse * anteil / 100)} g</StyledMenge>
-      <StyledAnteil
-        value={anteil}
-        update={update}
-      /> %
-      <Button onClick={onRemove}>Entfernen</Button>
-    </div>
-  );
-};
-
-export const Zutat = styled(ZutatComp)`
+export const StyledRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: baseline;
   width: 100%;
-  margin: ${margins.m} ${margins.s}
+  margin: 0 ${margins.s}
 `;
 
+export const Zutat = <ZUTAT extends ZutatModel, >({
+  useZutaten,
+  zutat: { name, anteil },
+  gesamtfettmasse,
+  index,
+  key,
+  className,
+}: ZutatProps<ZUTAT>): JSX.Element => {
+  const { updateZutat, removeZutat } = useZutaten();
+
+  const onRemove = (event: React.FormEvent): void => {
+    event.preventDefault();
+    removeZutat(index);
+  };
+
+  return (
+    <StyledRow className={className} key={key}>
+      <StyledName>{name}</StyledName>
+      <StyledMenge>{round(gesamtfettmasse * anteil / 100)} g</StyledMenge>
+      <StyledAnteil
+        value={anteil}
+        update={(menge: number): void => updateZutat(index, menge)}
+      /> %
+      <Button onClick={onRemove}>Entfernen</Button>
+    </StyledRow>
+  );
+};

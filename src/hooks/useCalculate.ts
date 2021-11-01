@@ -1,6 +1,6 @@
 import { umrechnungsfaktor } from '../resources/verseifungszahlen';
-import { Zutat } from '../contexts/ZutatenState';
-import { useRezept, useZutaten } from '../contexts/SeifeContext';
+import { VerseifungsZutat } from '../contexts/ZutatenState';
+import { useRezept, useVerseifungsZutaten } from '../contexts/SeifeContext';
 
 interface Lauge {
   naoh: number;
@@ -13,7 +13,7 @@ interface UseCalculate {
   calculateFluessigkeit: () => number;
 }
 
-const calculateLaugeFor = (zutaten: Zutat[]): number => zutaten
+const calculateLaugeFor = (zutaten: VerseifungsZutat[]): number => zutaten
   .filter(({ zusatz }) => !zusatz)
   .map(({ verseifungszahl, anteil }) => verseifungszahl * anteil)
   .reduce((sum, menge) => sum + menge, 0) / 1000 / 100;
@@ -27,7 +27,7 @@ export const useCalculate = (): UseCalculate => {
       fluessigkeitsanteil,
     },
   } = useRezept();
-  const { getFette, getZusaetze } = useZutaten();
+  const { getFette, getZusaetze } = useVerseifungsZutaten();
 
   const validateAnteile = (): boolean => {
     const anteilSum = getFette().reduce<number>((sum, { anteil }) => sum + anteil, 0);

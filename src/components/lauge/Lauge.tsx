@@ -4,7 +4,7 @@ import { useCalculate } from '../../hooks/useCalculate';
 import { InfoText } from '../common/InfoText';
 import { margins } from '../../theme';
 import { LaugeRow } from './LaugeRow';
-import { useRezept, useZutaten } from '../../contexts/SeifeContext';
+import { useRezept, useVerseifungsZutaten } from '../../contexts/SeifeContext';
 
 const StyledAnteile = styled(InfoText)`
   margin-bottom: ${margins.s};
@@ -12,7 +12,7 @@ const StyledAnteile = styled(InfoText)`
 
 export const Lauge: FC = () => {
   const { rezept: { naohAnteil, laugenfluessigkeit } } = useRezept();
-  const { getFette } = useZutaten();
+  const { getFette } = useVerseifungsZutaten();
   const { calculateLauge, calculateFluessigkeit } = useCalculate();
 
   const lauge = calculateLauge();

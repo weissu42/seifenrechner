@@ -13,6 +13,7 @@ export const defaultVerseifungsZutaten: VerseifungsZutatenState = {
   getZusaetze: () => [],
   addZutat: () => undefined,
 };
+
 export const useVerseifungsZutatenState = (): VerseifungsZutatenState => {
   const { zutaten, setZutaten, updateZutat, removeZutat } = useZutatenState<VerseifungsZutat>();
 
@@ -25,6 +26,14 @@ export const useVerseifungsZutatenState = (): VerseifungsZutatenState => {
   };
 
   const addZutat = (name: string, anteil: number): void => {
+    const index = zutaten.findIndex((zutat) => zutat.name === name);
+
+    const oldZutat = zutaten[index];
+    if (oldZutat !== undefined) {
+      updateZutat(index, oldZutat.anteil + anteil);
+      return;
+    }
+
     const zutatInfo = verseifungszahlen[name];
 
     if (zutatInfo === undefined) {
@@ -36,6 +45,7 @@ export const useVerseifungsZutatenState = (): VerseifungsZutatenState => {
     const newZutat: VerseifungsZutat = { name, anteil, verseifungszahl, jodzahl, zusatz: zusatz ?? false };
 
     setZutaten([ ...zutaten, newZutat ]);
+    return;
   };
 
   return { zutaten, setZutaten, getFette, getZusaetze, addZutat, removeZutat, updateZutat };

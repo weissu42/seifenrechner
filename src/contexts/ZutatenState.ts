@@ -31,6 +31,14 @@ export const useZutatenState = <ZUTAT extends Zutat,>(): ZutatenState<ZUTAT> => 
   const [ zutaten, setZutaten ] = useState<ZUTAT[]>([]);
 
   const addZutat = (name: string, anteil: number): void => {
+    const index = zutaten.findIndex((zutat) => zutat.name === name);
+
+    const oldZutat = zutaten[index];
+    if (oldZutat !== undefined) {
+      updateZutat(index, oldZutat.anteil + anteil);
+      return;
+    }
+
     setZutaten([ ...zutaten, { name, anteil } as ZUTAT ]);
   };
 

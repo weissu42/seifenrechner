@@ -29,7 +29,6 @@ interface ZutatProps<ZUTAT extends ZutatModel> extends DefaultProps {
   zutat: ZUTAT;
   gesamtfettmasse: number;
   index: number;
-  key: number;
 }
 
 export const StyledRow = styled.div`
@@ -45,7 +44,6 @@ export const Zutat = <ZUTAT extends ZutatModel, >({
   zutat: { name, anteil },
   gesamtfettmasse,
   index,
-  key,
   className,
 }: ZutatProps<ZUTAT>): JSX.Element => {
   const { updateZutat, removeZutat } = useZutaten();
@@ -56,7 +54,7 @@ export const Zutat = <ZUTAT extends ZutatModel, >({
   };
 
   return (
-    <StyledRow className={className} key={key}>
+    <StyledRow className={className}>
       <StyledName>{name}</StyledName>
       <StyledMenge>{round(gesamtfettmasse * anteil / 100)} g</StyledMenge>
       <StyledAnteil

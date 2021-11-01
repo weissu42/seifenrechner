@@ -14,7 +14,6 @@ interface UseCalculate {
 }
 
 const calculateLaugeFor = (zutaten: VerseifungsZutat[]): number => zutaten
-  .filter(({ zusatz }) => !zusatz)
   .map(({ verseifungszahl, anteil }) => verseifungszahl * anteil)
   .reduce((sum, menge) => sum + menge, 0) / 1000 / 100;
 
